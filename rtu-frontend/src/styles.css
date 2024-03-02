@@ -1,0 +1,45 @@
+/* styles.css */
+
+.main-container {
+  display: flex;
+}
+
+.sidebar {
+  width: 250px;
+  background-color: #333;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  height: 755px;
+}
+
+.sidebar-top {
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sidebar-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar-menu li {
+  padding: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.sidebar-menu a {
+  text-decoration: none;
+  color: #fff;
+  margin-left: 10px;
+}
+
+.textCentre{
+  text-align: center;
+  overflow-y: auto;
+  max-height: 750px;
+}

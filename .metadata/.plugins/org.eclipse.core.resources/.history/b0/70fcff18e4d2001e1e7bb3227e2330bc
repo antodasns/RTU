@@ -1,0 +1,20 @@
+package com.application.rtu.model;
+
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+
+@Data
+public class File {
+	@Getter
+	@Setter
+	private String name;
+	@Getter
+	@Setter
+	private String currentFlow;
+	@Getter
+	@Setter
+	private String type;
+	
+
+}

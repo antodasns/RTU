@@ -1,0 +1,91 @@
+package com.application.rtu.services;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.application.rtu.entity.FlowEntity;
+import com.application.rtu.entity.TaskEntity;
+import com.application.rtu.model.File;
+import com.application.rtu.model.Flow;
+import com.application.rtu.model.Task;
+import com.application.rtu.repository.FlowRepository;
+import com.application.rtu.repository.TaskRepository;
+
+@Service	
+public class RtuServiceImpl implements RtuService{
+	
+	@Autowired
+	private TaskRepository taskRepository;
+	
+	@Autowired
+	private FlowRepository flowRepository;
+	
+	@Override
+	public Task createTask(Task task) {
+		
+		TaskEntity taskEntity=new TaskEntity();
+		
+		BeanUtils.copyProperties(task, taskEntity);
+		
+		taskRepository.save(taskEntity); 
+		
+		return task;
+		
+	}
+
+	@Override
+	public Flow createFlow(Flow flow) {
+		
+		FlowEntity flowEntity=new FlowEntity();
+		
+		BeanUtils.copyProperties(flow, flowEntity);
+		
+		flowRepository.save(flowEntity); 
+		
+		return flow;
+	}
+
+	@Override
+	public String getFlow(String flowId) {
+		
+		long flowIdLong = Long.parseLong(flowId); 
+		
+		FlowEntity flowEntity=flowRepository.findById(flowIdLong).get();
+		
+		return flowEntity.getFlowJson();
+	}
+
+	@Override
+	public List<File> getFiles() {
+		// TODO Auto-generated method stub
+		File file1=new File();
+		File file2=new File();
+		File file3=new File();
+		
+		file1.setName("file11111111");
+		file1.setCurrentFlow("user1");
+		file1.setType("task");
+		
+		file2.setName("file22222222222");
+		file2.setCurrentFlow("user2");
+		file2.setType("task");
+		
+		file3.setName("file333333");
+		file3.setCurrentFlow("user3");
+		file3.setType("task");
+		
+		List<File> fileList=new ArrayList<>();
+		fileList.add(file1);
+		fileList.add(file2);
+		fileList.add(file3);
+		
+		
+		return fileList;
+	}
+
+}
