@@ -1,0 +1,27 @@
+package com.application.rtu.security;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+
+
+public class CustomUserDetails extends User {
+
+    private CustomUserDetails(String username, String password, List<GrantedAuthority> authorities) {
+        super(username, password, authorities);
+    }
+
+    public static UserDetails build(User user) {
+//        List<GrantedAuthority> authorities = user.getRoles().stream()
+//                .map(role -> new SimpleGrantedAuthority("ROLE_" + role.getName()))
+//                .collect(Collectors.toList());
+        
+        List<GrantedAuthority> authorities=new ArrayList<>();
+
+        return new CustomUserDetails(user.getUsername(), user.getPassword(), authorities);
+    }
+}
+

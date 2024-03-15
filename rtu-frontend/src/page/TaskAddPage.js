@@ -4,12 +4,17 @@ import TaskService from "../services/TaskService";
 import ButtonField from "../components/ButtonField";
 import DateField from "../components/DateField";
 import SelectField from "../components/SelectField";
+import { useAuth } from '../context/AuthContext';
 
 const TaskAddPage = (props) => {
+
+  const Auth = useAuth()
+  const user = Auth.getUser()
+
   const options = [
-    { value: "master", label: "master" },
-    { value: "developer", label: "developer" },
-    { value: "tester", label: "tester" },
+    { value: "Master", label: "Master" },
+    { value: "Developer", label: "Developer" },
+    { value: "Tester", label: "Tester" },
   ];
  
   const [task, setTask] = useState({
@@ -27,7 +32,7 @@ const TaskAddPage = (props) => {
 
   const saveTask = (e) => {
     e.preventDefault();
-    TaskService.saveTask(task)
+    TaskService.saveTask(task,user)
       .then((response) => {
         console.log(response);
       })

@@ -2,8 +2,11 @@ import React, { useEffect, useState ,Component } from 'react';
 import TaskService from "../services/TaskService";
 import ButtonField from '../components/ButtonField';
 import TaskAddPage from './TaskAddPage';
+import { useAuth } from '../context/AuthContext';
 
 const InformationPage = (props) => {
+  const Auth = useAuth()
+  const user = Auth.getUser()
 
   const [data, setData] = useState([]);
 
@@ -16,7 +19,7 @@ const InformationPage = (props) => {
   });
 
   useEffect(() => {
-    TaskService.getFlow(1)
+    TaskService.getFlow(1,user)
       .then((response) => {
         var map = new Map(Object.entries(response.data))
         setData(map);
@@ -25,7 +28,7 @@ const InformationPage = (props) => {
         console.log(error);
       });
 
-      TaskService.getFile(props.id)
+      TaskService.getFile(props.id,user)
       .then((response) => {
         setTask(response.data);
       })
@@ -36,7 +39,7 @@ const InformationPage = (props) => {
 
   const formward=()=>{
 
-    TaskService.forward(props.id)
+    TaskService.forward(props.id,user)
     .then((response) => {
       console.log(response);
     })

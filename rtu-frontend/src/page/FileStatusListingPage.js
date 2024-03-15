@@ -3,9 +3,20 @@ import TaskService from '../services/TaskService';
 import TaskAddPage from './TaskAddPage';
 import InformationPage from './InformationPage';
 import { useUser } from './UserContext';
+import { useAuth } from '../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
+
 
 const FileStatusListingPage = () => {
-  const { user } = useUser();
+
+  const navigate=useNavigate();
+
+  const Auth = useAuth()
+  const user = Auth.getUser()
+
+  const isLoggedIn = Auth && Auth.userIsAuthenticated();
+
+  //const { user } = useUser();
 
   const [infoId, setInfoId] = useState();
 
@@ -14,6 +25,13 @@ const FileStatusListingPage = () => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   const [isInfoPopupOpen, setIsInfoPopupOpen] = useState(false);
+
+  const logout = () => {
+
+    const isLoggedIn = Auth && Auth.userLogout();
+
+    navigate('/');
+  }
 
   const openPopup = () => {
     setIsPopupOpen(true);
@@ -33,7 +51,10 @@ const FileStatusListingPage = () => {
   };
 
   useEffect(() => {
-    TaskService.getFilesByUser(user.username)
+
+    const { sub } = user.data;
+
+    TaskService.getFilesByUser(sub,user)
       .then((response) => {
         setData(response.data);
       })
@@ -48,6 +69,10 @@ const FileStatusListingPage = () => {
         <h1 className="text-3xl font-bold">File Listing Page</h1>
         <button className="bg-blue-500 text-white py-2 px-4 rounded-md" onClick={openPopup}>
          Add Task
+        </button>
+
+        <button className="bg-blue-500 text-white py-2 px-4 rounded-md" onClick={logout}>
+         LOGOUT
         </button>
       </div>
 

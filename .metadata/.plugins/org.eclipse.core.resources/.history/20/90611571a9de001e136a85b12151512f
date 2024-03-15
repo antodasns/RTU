@@ -1,0 +1,15 @@
+package com.application.rtu.entity;
+
+import java.util.Set;
+
+import lombok.Data;
+
+@Data
+public class User {
+	
+	private String username;
+	private String password;
+	private Set<Role> roles;
+
+
+}

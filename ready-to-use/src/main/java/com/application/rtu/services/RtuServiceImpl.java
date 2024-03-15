@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 import org.json.JSONArray;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.application.rtu.entity.FlowEntity;
@@ -189,6 +190,11 @@ public class RtuServiceImpl implements RtuService{
         taskRepository.save(task);
 		
 		return null;
+	}
+
+	@Override
+	public BCryptPasswordEncoder bCryptPasswordEncoder() {
+		return new BCryptPasswordEncoder();
 	}
 
 }

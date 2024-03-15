@@ -10,28 +10,46 @@ import ForwardedListing from './page/ForwardedListing';
 import { UserProvider, useUser } from './page/UserContext';
 import LoginPage from './page/LoginPage';
 
-function App() {
-  const { user } = useUser();
-  console.log(user);
+import { AuthProvider, useAuth } from './context/AuthContext';
 
+function App() {
   return (
-      <Router>
-        {user ? (
-          <Layout>
-            <Routes>
-              <Route path="/home" element={<FileStatusListingPage />} />
-              <Route path="/formwarded" element={<ForwardedListing />} />
-              <Route path="/completed" element={<CompletedListing />} />
-              <Route path="/flow" element={<FlowListing />} />
-            </Routes>
-          </Layout>
-        ) : (
-          <Routes>
-          <Route path="/" element={<LoginPage />} />
-          </Routes>
-        )}
-      </Router>
+    <AuthProvider>
+        <AppRoutes />
+    </AuthProvider>
   );
 }
+
+
+function AppRoutes() {
+  const Auth = useAuth();
+  
+  const isLoggedIn = Auth && Auth.userIsAuthenticated();
+
+  console.log(isLoggedIn);
+
+  return (
+    <Router>
+    {isLoggedIn ? (
+      <Layout>
+        <Routes>
+          <Route path="/home" element={<FileStatusListingPage />} />
+          <Route path="/formwarded" element={<ForwardedListing />} />
+          <Route path="/completed" element={<CompletedListing />} />
+          <Route path="/flow" element={<FlowListing />} />
+        </Routes>
+      </Layout>
+    ) : (
+      <Routes>
+      <Route path="/" element={<LoginPage />} />
+      </Routes>
+    )}
+  </Router>
+  );
+}
+
+
+
+
 
 export default App;

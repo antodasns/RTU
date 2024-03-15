@@ -1,0 +1,23 @@
+package com.application.rtu.model;
+
+import java.sql.Date;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+public class Task {
+	private long id;
+	private String taskName;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+	private Date completionDate;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+	private Date assignDate;
+	private String assignTo;
+	private String state;
+	private Boolean completed;
+}

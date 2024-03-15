@@ -1,0 +1,15 @@
+package com.application.rtu.common;
+
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+public class RtuCommon {
+	
+	public static String bCryptPasswordEncoder(String str) {
+		
+		BCryptPasswordEncoder bcrypt=new BCryptPasswordEncoder();
+		
+		return bcrypt.encode(str);
+		
+	}
+
+}

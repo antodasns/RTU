@@ -4,21 +4,51 @@ import React, { useState } from 'react';
 import { useUser } from './UserContext';
 import { useNavigate } from 'react-router-dom';
 
+import { useAuth } from '../context/AuthContext';
+
+import TaskService from '../services/TaskService';
+import { parseJwt, handleLogError } from '../misc/Helpers'
+
 const LoginPage = () => {
-  
+
+  const Auth = useAuth()
   const navigate=useNavigate();
   const { login } = useUser();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleLogin = () => {
-    // Basic authentication logic (you can replace this with your actual authentication logic)
-    if ((username === 'developer'||username === 'tester'||username === 'master') && password === 'pass') {
-      login({ username });
+  const handleLogin = async (e) => {
+
+    try {
+
+    const response = await TaskService.authenticate(username, password)
+
+      const { accessToken } = response.data
+
+      const data = parseJwt(accessToken)
+
+      const authenticatedUser = { data, accessToken }
+
+      Auth.userLogin(authenticatedUser)
+
+      setUsername('')
+
+      setPassword('')
+
       navigate('/home');
-    } else {
-      alert('Invalid username or password');
+
+    } catch (error) {
+
+      handleLogError(error)
     }
+
+    // Basic authentication logic (you can replace this with your actual authentication logic)
+    // if ((username === 'developer'||username === 'tester'||username === 'master') && password === 'pass') {
+    //   login({ username });
+    //   navigate('/home');
+    // } else {
+    //   alert('Invalid username or password');
+    // }
   };
 
   return (

@@ -2,6 +2,8 @@ package com.application.rtu.services;
 
 import java.util.List;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 import com.application.rtu.model.File;
 import com.application.rtu.model.Flow;
 import com.application.rtu.model.Task;
@@ -23,5 +25,7 @@ public interface RtuService {
 	Task getFile(String fileId);
 
 	Task forward(String fileId);
+	
+	BCryptPasswordEncoder bCryptPasswordEncoder();
 
 }

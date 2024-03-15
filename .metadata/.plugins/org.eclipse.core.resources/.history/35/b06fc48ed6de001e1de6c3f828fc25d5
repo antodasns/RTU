@@ -1,0 +1,11 @@
+package com.application.rtu.services;
+
+import com.application.rtu.entity.User;
+
+public class UserService {
+	
+	User getUser(Long id);
+    User getUser(String username);
+    User saveUser(User user);
+
+}

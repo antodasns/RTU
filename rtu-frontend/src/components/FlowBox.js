@@ -9,9 +9,9 @@ const FlowBox = ({ formData, handleInputChange }) => {
   };
 
   const options = [
-    { value: "master", label: "master" },
-    { value: "developer", label: "developer" },
-    { value: "tester", label: "tester" },
+    { value: "Master", label: "Master" },
+    { value: "Developer", label: "Developer" },
+    { value: "Tester", label: "Tester" },
   ];
   return (
     <div  className="bg-white p-4 rounded-md max-w-md mx-auto shadow-lg border-b mt-10">

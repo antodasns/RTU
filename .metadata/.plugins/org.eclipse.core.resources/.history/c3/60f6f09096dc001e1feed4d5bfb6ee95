@@ -1,0 +1,15 @@
+package com.application.rtu.model;
+
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+
+@Data
+@Getter
+@Setter
+public class Flow {
+	
+	private long id;
+	private String flowJson;
+
+}

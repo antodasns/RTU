@@ -1,0 +1,5 @@
+package com.application.rtu.entity;
+
+public class JwtResponse {
+
+}

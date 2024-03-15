@@ -1,0 +1,15 @@
+package com.application.rtu.entity;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import lombok.Data;
+
+@Data
+@Entity
+@Table(name="rtu_user")
+public class User {
+    private Long id;
+    private String username;
+    private String password;
+   
+}
